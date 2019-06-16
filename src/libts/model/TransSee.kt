@@ -25,7 +25,8 @@ object TransSee {
         /**
          * Finds a [Route] within this [Agency] using it's [alphanumeric code][Route.code]
          */
-        fun route(code: String) = routes.find { it.code == code } ?: error("libts -> ERROR: no route with code \"$code\" for agency \"${this.code}\"")
+        fun route(code: String) = routes.find { it.code == code }
+            ?: error("libts -> ERROR: no route with code \"$code\" for agency \"${this.code}\"")
 
     }
 
@@ -44,7 +45,8 @@ object TransSee {
         /**
          * Finds a [Stop] along this [Route] using it's [alphanumeric code][Stop.code]
          */
-        fun stop(code: String) = stops.find { it.code == code } ?: error("libts -> ERROR: no stop with code \"$code\" for route \"${this.code}\" in agency \"${this.agency.code}\"")
+        fun stop(code: String) = stops.find { it.code == code }
+            ?: error("libts -> ERROR: no stop with code \"$code\" for route \"${this.code}\" in agency \"${this.agency.code}\"")
 
         override fun toString(): String {
             return name
@@ -83,6 +85,7 @@ object TransSee {
     /**
      * Finds an [Agency] using it's [alphanumeric code][Agency.code]
      */
-    fun agency(code: String) = agencies.find { it.code == code } ?: error("libts -> ERROR: no agency with code \"$code\"")
+    fun agency(code: String) =
+        agencies.find { it.code == code } ?: error("libts -> ERROR: no agency with code \"$code\"")
 
 }

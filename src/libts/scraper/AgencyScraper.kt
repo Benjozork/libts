@@ -15,7 +15,7 @@ object AgencyScraper {
 
         return agencies.map {
 
-            val agencyName = it.text();
+            val agencyName = it.text()
             val agencyCode = it.attr("href").split("=")[1]
 
             TransSee.Agency(agencyName, agencyCode)
