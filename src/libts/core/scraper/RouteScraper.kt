@@ -1,6 +1,6 @@
-package libts.scraper
+package libts.core.scraper
 
-import libts.model.TransSee
+import libts.core.model.TransSee
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -21,7 +21,22 @@ object RouteScraper {
         }
 
         return document.select("p:has(a[href~=$ROUTE_SCRAPING_LINK_REGEX])")
-            .map { route -> TransSee.Route(agency, route.id(), route.id()) }
+            .map { routeElem ->
+
+                val routeAgencyCode = routeElem
+                    .select("a[href~=$ROUTE_SCRAPING_LINK_REGEX]")
+                    .attr("href")
+                    .substringAfter('=')
+                    .substringBefore('&')
+
+                TransSee.Route (
+                    agency = agency,
+                    code   = routeElem.id(),
+                    name   = routeElem.id(),
+                    altAgencyCode = if (routeAgencyCode != agency.code) routeAgencyCode else "",
+                    altAgencyName = if (routeAgencyCode != agency.code) routeAgencyCode else ""
+                )
+            }
     }
 
 }

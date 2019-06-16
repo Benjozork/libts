@@ -1,8 +1,8 @@
-package libts.model
+package libts.core.model
 
-import libts.scraper.AgencyScraper
-import libts.scraper.RouteScraper
-import libts.scraper.StopScraper
+import libts.core.scraper.AgencyScraper
+import libts.core.scraper.RouteScraper
+import libts.core.scraper.StopScraper
 
 /**
  * The base namespace object holding references to all available and supported transsee information
@@ -33,12 +33,30 @@ object TransSee {
     /**
      * Represents a route part of an [Agency]
      *
+     * **Warning**: a route may have an agency code/name different from the code of the agency it's part of.
+     *
+     * This can happen if it is part of a "subsystem" of the agency. i.e. the TTC subway.
+     *
+     * This is due to the way TransSee handles those cases. When such alternative agency code/name exists for the route,
+     *
+     * it will be indicated in [altAgencyCode] and [altAgencyName] respectively.
+     *
      * @property agency the [Agency] this route is part of
      * @property name   the name of the route, with possibly multiple words
      * @property code   a consecutive alphanumeric code that represents the route
-     * @property stops  a lazily-loaded list of stops this route makes
+     *
+     * @property stops a lazily-loaded list of stops this route makes
+     *
+     * @property altAgencyCode the alternative agency code, if it differs
+     * @property altAgencyName the alternative agency name, if it differs
      */
-    class Route(val agency: Agency, val name: String, val code: String) {
+    class Route (
+        val agency:        Agency,
+        val name:          String,
+        val code:          String,
+        var altAgencyCode: String = "",
+        val altAgencyName: String = ""
+    ) {
 
         val stops by lazy { StopScraper.scrape(this) }
 

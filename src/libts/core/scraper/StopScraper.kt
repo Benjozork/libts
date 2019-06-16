@@ -1,6 +1,6 @@
-package libts.scraper
+package libts.core.scraper
 
-import libts.model.TransSee
+import libts.core.model.TransSee
 
 import org.jsoup.Jsoup
 
@@ -11,7 +11,9 @@ object StopScraper {
 
     fun scrape(route: TransSee.Route): List<TransSee.Stop> {
 
-        val document = Jsoup.connect("$STOP_SCRAPING_BASE_URL?a=${route.agency.code}&r=${route.code}").get()
+        val finalAgencyCode = if (route.altAgencyCode == "") route.agency.code else route.altAgencyCode
+
+        val document = Jsoup.connect("$STOP_SCRAPING_BASE_URL?a=$finalAgencyCode&r=${route.code}").get()
 
         return document.select(".routetable a[href~=$STOP_SCRAPING_LINK_REGEX]")
             .map { TransSee.Stop(it.attr("href").split('.')[2]) }

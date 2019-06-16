@@ -1,6 +1,6 @@
-package libts.scraper
+package libts.core.scraper
 
-import libts.model.TransSee
+import libts.core.model.TransSee
 
 import org.jsoup.Jsoup
 
