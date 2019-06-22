@@ -2,6 +2,18 @@
 
 library for using https://transsee.ca/ data
 
+## Current state
+
+This library is currently *very* experimental, and it WILL break in a good number of cases.
+Please report those instances with an issue so that it can be fixed.
+
+As TransSee provides absolutely no API or properly sturctured HTML, the scraping engine is very unstable and breaks when
+a certain agency/route/stop page is formatted a little differently.
+
+As already stated in the license, ABSOLUTELY NO WARRANTY relating to accuracy of data provided exists. Neither the authors of libts or http://transsee.ca/ are responsible for any damage or loss caused by relying on the data provided by either service.
+
+The authors of this library currently have no relationship, agreement or contract whatsoever with http://transsee.ca/ or any of the agencies whose data is available through its use.
+
 ## Usage
 
 ### Getting all available agencies
