@@ -1,6 +1,9 @@
 package libts.core.model
 
+import com.soywiz.klock.DateTimeTz
+
 import libts.core.scraper.AgencyScraper
+import libts.core.scraper.BusScraper
 import libts.core.scraper.RouteScraper
 import libts.core.scraper.StopScraper
 
@@ -81,6 +84,8 @@ object TransSee {
      */
     class Stop(val code: String) {
 
+        fun buses(route: Route) = BusScraper.scrape(this, route)
+
         override fun toString(): String {
             return code
         }
@@ -88,11 +93,18 @@ object TransSee {
     }
 
     /**
-     * Represents a singular bus along a [Route]
+     * Represents a singular bus along a [Route], scheduled to pass at a [Stop]
      *
-     * @property route the [Route] this bus is currently operating on
+     * @property stop the [Stop] we are referencing
+     * @property time the [DateTimeTz][time] at which the bus is scheduled to arrive
      */
-    class Bus(val route: Route)
+    class ScheduledBus(val stop: Stop, val time: DateTimeTz) {
+
+        override fun toString(): String {
+            return time.toString()
+        }
+
+    }
 
 
     /**
